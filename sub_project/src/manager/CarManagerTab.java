@@ -175,7 +175,7 @@ public class CarManagerTab extends JPanel { //차량관리탭
 
 	public JButton getJbtCarInfoModify() {
 		return jbtCarInfoModify;
-	}
+	} //
     
     	
 } //class

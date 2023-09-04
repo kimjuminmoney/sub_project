@@ -48,7 +48,7 @@ public class CarManager extends JFrame {//
       
         
       //크기 조정 및 배치  
-      setBounds(300, 300, 1000, 800);
+      setBounds(300, 300, 1000, 740);
       setVisible(true);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       

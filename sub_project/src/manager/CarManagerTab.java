@@ -1,11 +1,9 @@
 package manager;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 //import java.awt.Color;
 //
@@ -13,14 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
-public class CarManagerTab extends JPanel {
+public class CarManagerTab extends JPanel { //차량관리탭
 	
-	private JLabel CMName;
+	private CarManagerTabEvt cmtEvt;
 	
+	private JLabel cMName;
     private JScrollPane scrollPane;
     private JTable jtbCarInfoTable;
 	
+    private JLabel cmMiddle;
 	private JTextField jtfStartDate;
 	private JTextField jtfEndDate;
 	private JButton jbDateSearch;
@@ -31,7 +34,7 @@ public class CarManagerTab extends JPanel {
 
 
     
-    public CarManagerTab() {//
+    public CarManagerTab() {
     	
         setLayout(new BorderLayout());
         
@@ -47,32 +50,47 @@ public class CarManagerTab extends JPanel {
                 {"359자 5617", "알파고", "암튼 교체함", "2023-09-27", "2023-10-01", ""}
         };
         
-        CMName = new JLabel("입고 차량관리");
+        cMName = new JLabel("입고 차량 관리");
+        Font cmNameFont = new Font(null, Font.BOLD, 20);
+        cMName.setFont(cmNameFont);
+        
         
         //정보 게시판
         jtbCarInfoTable = new JTable(data, columnNames);
         scrollPane = new JScrollPane(jtbCarInfoTable);
+        //컬럼네임 크기 조절
+        JTableHeader tableHeader = jtbCarInfoTable.getTableHeader();
+        Font headerFont = new Font(null, Font.BOLD, 14);
+        tableHeader.setFont(headerFont);
+        //데이터 크기 조절
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) jtbCarInfoTable.getDefaultRenderer(Object.class);
+        Font dataFont = new Font(null, Font.PLAIN, 14);
+        renderer.setFont(dataFont);
+        renderer.setHorizontalAlignment(SwingConstants.CENTER); //데이터 가운데 정렬
+        
         
         //날짜, 검색
+        cmMiddle = new JLabel("~");
+        Font cmMiddleFont = new Font(null,Font.BOLD, 14);
+        cmMiddle.setFont(cmMiddleFont);
+        
         jtfStartDate = new JTextField();
       	jtfEndDate = new JTextField();
-      	jbDateSearch = new JButton();
+      	jbDateSearch = new JButton("검색");
       		
-      	//하단 버튼
       	jbtCarInfo = new JButton("차량 정보");
       	jbtCarAdd = new JButton("차량 추가");
       	jbtCarInfoModify = new JButton("정보 수정");
       	
       	
         
-        
         //추가
         setLayout(null);
         
-        add("North", CMName);
-        
+        add("North", cMName);
         add("Center", scrollPane);
         
+        add("Center", cmMiddle);
 		add("Center", jtfStartDate);
 		add("Center", jtfEndDate);
 		add("Center", jbDateSearch);
@@ -81,19 +99,31 @@ public class CarManagerTab extends JPanel {
 		add("Center", jbtCarAdd);
 		add("Center", jbtCarInfoModify);
 		
+		
+		
+		//클릭 이벤트
+		jtfStartDate.addActionListener(cmtEvt);
+		jtfEndDate.addActionListener(cmtEvt);
+		jbDateSearch.addActionListener(cmtEvt);
+		
+		jbtCarInfo.addActionListener(cmtEvt);
+		jbtCarAdd.addActionListener(cmtEvt);
+		jbtCarInfoModify.addActionListener(cmtEvt);
+		
+		
+		
 		//크기 조정 및 배치
-		
-		CMName.setBounds(10, 6, 80, 20);
-		
+		cMName.setBounds(10, 6, 140, 20);
 		scrollPane.setBounds(80, 50, 800, 400); // 테이블의 위치와 크기 설정
 		
-		jtfStartDate.setBounds(200, 500, 100, 30); // 시작 날짜 필드의 위치와 크기 설정
-		jtfEndDate.setBounds(350, 500, 100, 30); // 종료 날짜 필드의 위치와 크기 설정
-		jbDateSearch.setBounds(500, 500, 100, 30); // 검색 버튼의 위치와 크기 설정
+		cmMiddle.setBounds(430, 500, 20, 20);
+		jtfStartDate.setBounds(280, 500, 140, 30); // 시작 날짜 필드의 위치와 크기 설정
+		jtfEndDate.setBounds(450, 500, 140, 30); // 종료 날짜 필드의 위치와 크기 설정
+		jbDateSearch.setBounds(610, 500, 70, 30); // 검색 버튼의 위치와 크기 설정
 
-		jbtCarInfo.setBounds(650, 550, 120, 30); // "차량 정보" 버튼의 위치와 크기 설정
-		jbtCarAdd.setBounds(800, 550, 120, 30); // "차량 추가" 버튼의 위치와 크기 설정
-		jbtCarInfoModify.setBounds(950, 550, 120, 30); // "정보 수정" 버튼의 위치와 크기 설정
+		jbtCarInfo.setBounds(250, 550, 120, 30); // "차량 정보" 버튼의 위치와 크기 설정
+		jbtCarAdd.setBounds(420, 550, 120, 30); // "차량 추가" 버튼의 위치와 크기 설정
+		jbtCarInfoModify.setBounds(590, 550, 120, 30); // "정보 수정" 버튼의 위치와 크기 설정
 		
 		scrollPane.setVisible(true);
 		setVisible(true);
@@ -101,6 +131,51 @@ public class CarManagerTab extends JPanel {
         
     } //CarManagerTap1
 
- 
+
+    //getter method
+	public JLabel getCMName() {
+		return cMName;
+	}
+
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+
+	public JTable getJtbCarInfoTable() {
+		return jtbCarInfoTable;
+	}
+
+
+	public JTextField getJtfStartDate() {
+		return jtfStartDate;
+	}
+
+
+	public JTextField getJtfEndDate() {
+		return jtfEndDate;
+	}
+
+
+	public JButton getJbDateSearch() {
+		return jbDateSearch;
+	}
+
+
+	public JButton getJbtCarInfo() {
+		return jbtCarInfo;
+	}
+
+
+	public JButton getJbtCarAdd() {
+		return jbtCarAdd;
+	}
+
+
+	public JButton getJbtCarInfoModify() {
+		return jbtCarInfoModify;
+	}
+    
     	
 } //class

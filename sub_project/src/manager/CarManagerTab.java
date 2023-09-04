@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 //import java.awt.Color;
 //
 import javax.swing.JPanel;
@@ -14,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class CarManagerTab extends JPanel {
+	
+	private JLabel CMName;
 	
     private JScrollPane scrollPane;
     private JTable jtbCarInfoTable;
@@ -28,7 +31,7 @@ public class CarManagerTab extends JPanel {
 
 
     
-    public CarManagerTab() {
+    public CarManagerTab() {//
     	
         setLayout(new BorderLayout());
         
@@ -44,10 +47,11 @@ public class CarManagerTab extends JPanel {
                 {"359자 5617", "알파고", "암튼 교체함", "2023-09-27", "2023-10-01", ""}
         };
         
+        CMName = new JLabel("입고 차량관리");
+        
         //정보 게시판
         jtbCarInfoTable = new JTable(data, columnNames);
         scrollPane = new JScrollPane(jtbCarInfoTable);
-        scrollPane.setVisible(true);
         
         //날짜, 검색
         jtfStartDate = new JTextField();
@@ -58,12 +62,16 @@ public class CarManagerTab extends JPanel {
       	jbtCarInfo = new JButton("차량 정보");
       	jbtCarAdd = new JButton("차량 추가");
       	jbtCarInfoModify = new JButton("정보 수정");
+      	
+      	
         
         
         //추가
         setLayout(null);
         
-        add("Center", jtbCarInfoTable);
+        add("North", CMName);
+        
+        add("Center", scrollPane);
         
 		add("Center", jtfStartDate);
 		add("Center", jtfEndDate);
@@ -75,7 +83,9 @@ public class CarManagerTab extends JPanel {
 		
 		//크기 조정 및 배치
 		
-		jtbCarInfoTable.setBounds(0, 0, 800, 400); // 테이블의 위치와 크기 설정
+		CMName.setBounds(10, 6, 80, 20);
+		
+		scrollPane.setBounds(80, 50, 800, 400); // 테이블의 위치와 크기 설정
 		
 		jtfStartDate.setBounds(200, 500, 100, 30); // 시작 날짜 필드의 위치와 크기 설정
 		jtfEndDate.setBounds(350, 500, 100, 30); // 종료 날짜 필드의 위치와 크기 설정
@@ -85,6 +95,7 @@ public class CarManagerTab extends JPanel {
 		jbtCarAdd.setBounds(800, 550, 120, 30); // "차량 추가" 버튼의 위치와 크기 설정
 		jbtCarInfoModify.setBounds(950, 550, 120, 30); // "정보 수정" 버튼의 위치와 크기 설정
 		
+		scrollPane.setVisible(true);
 		setVisible(true);
         
         

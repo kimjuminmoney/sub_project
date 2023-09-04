@@ -179,6 +179,17 @@ public class CarManagerVO {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "CarManagerVO [clientName=" + clientName + ", clientPhone=" + clientPhone + ", carNo=" + carNo
+				+ ", clientEmail=" + clientEmail + ", carMileage=" + carMileage + ", carName=" + carName
+				+ ", maintenanceNo=" + maintenanceNo + ", empName=" + empName + ", receivedDay=" + receivedDay
+				+ ", releaseDay=" + releaseDay + ", faultDetail=" + faultDetail + ", maintenanceDetail="
+				+ maintenanceDetail + ", note=" + note + "]";
+	}
 	
 	
 
